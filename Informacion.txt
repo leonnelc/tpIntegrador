@@ -1,0 +1,15 @@
+Fase:
+	numero, Rondas con el mismo numFase
+Ronda:
+	numFase, numRonda, Partidos con el mismo numRonda
+Partido:
+	id,numFase , numRonda, equipo1, equipo2, goles1, goles2
+Equipo:
+	id, nombre, descripcion
+
+Pronostico:
+	id, id equipo ganador (-1 para empate)
+Persona:
+	id, nombre, pronosticos
+
+al instanciar Partido, se instancia automaticamente una nueva Ronda si es que todavia no esta instanciado el numero de ronda del partido, y al instanciarse esa Ronda, tambien se instancia automaticamente una Fase si es que todavia no existe el numero de fase de ese partido y ronda.

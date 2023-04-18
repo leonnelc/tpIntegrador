@@ -1,0 +1,16 @@
+{
+  "tipoDB": "CSV",
+  "url": "localhost:666",
+  "username": "admin",
+  "password": "1234",
+  "fase": 0,
+  "ronda": 1,
+  "equipo1r": 2,
+  "equipo2r": 5,
+  "goles1": 3,
+  "goles2": 4,
+  "participante": 2,
+  "resultado": 4,
+  "equipo1p": 3,
+  "equipo2p": 5
+}
