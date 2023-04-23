@@ -10,8 +10,7 @@ import java.util.ArrayList;
 public class LectorCSV {
         private final String separador;
         private final String archivo;
-        private final String[] columnas = new String[6];
-        private final ArrayList<String[]> filas = new ArrayList<>();
+    private final ArrayList<String[]> filas = new ArrayList<>();
 
 
         public LectorCSV(String archivo, String separador) {
@@ -24,21 +23,26 @@ public class LectorCSV {
                 BufferedReader br = new BufferedReader(new FileReader(this.archivo));
                 int nroLinea = 0;
                 String linea = br.readLine();
+
                 while (linea != null) {
+
+                    String[] columnas = linea.split(this.separador);
                     for (int i = 0; i < columnas.length; i++) {
-                        String[] columnas = linea.split(this.separador);
-                        if (columnas.length != this.columnas.length){
-                            throw new ColumnasInvalidasException("El archivo \""+archivo+"\" tiene "+columnas.length+" columnas en la fila numero "+(nroLinea+1)+", cuando deberia tener "+this.columnas.length);
+                        int numColumnas = 6;
+                        if (columnas.length != numColumnas){
+                            throw new ColumnasInvalidasException("El archivo \""+archivo+"\" tiene "+columnas.length+" columnas en la fila numero "+(nroLinea+1)+", cuando deberia tener "+ numColumnas);
                         }
-                        this.filas.add(nroLinea, new String[this.columnas.length]);
-                        this.filas.get(nroLinea)[i] = columnas[i].strip(); // le saco los espacios a los lados para prevenir errores
-                        if (nroLinea == 0){
-                            this.columnas[i] = filas.get(0)[i];
-                        }
+                        columnas[i] = columnas[i].strip(); // le saco los espacios para prevenir errores
+
                     }
+                    this.filas.add(nroLinea, columnas);
+                    //System.out.println(Arrays.toString(columnas));
+                    //System.out.println(Arrays.toString(this.filas.get(nroLinea)));
                     linea = br.readLine(); // avanzo de linea
                     nroLinea++;
+
                 }
+                br.close();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -51,5 +55,8 @@ public class LectorCSV {
     }
     public String[] getFila(int indice){
             return filas.get(indice);
+    }
+    public int numFilas(){
+            return filas.size();
     }
 }

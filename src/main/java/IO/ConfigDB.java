@@ -3,6 +3,65 @@ package IO;
 import Excepciones.ConfigInvalidaException;
 
 public class ConfigDB {
+    private ConfigDB(){
+        // solo para hacer que no se pueda instanciar
+    }
+    public static String getTipoDB() {
+        return tipoDB;
+    }
+
+    public static String getUrl() {
+        return url;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static int getFase() {
+        return fase;
+    }
+
+    public static int getRonda() {
+        return ronda;
+    }
+
+    public static int getEquipo1r() {
+        return equipo1r;
+    }
+
+    public static int getEquipo2r() {
+        return equipo2r;
+    }
+
+    public static int getGoles1() {
+        return goles1;
+    }
+
+    public static int getGoles2() {
+        return goles2;
+    }
+
+    public static int getParticipante() {
+        return participante;
+    }
+
+    public static int getResultado() {
+        return resultado;
+    }
+
+    public static int getEquipo1p() {
+        return equipo1p;
+    }
+
+    public static int getEquipo2p() {
+        return equipo2p;
+    }
+
     // tipo de base de datos
     private static String tipoDB = "csv"; // puede ser csv o sql (para csv hay que configurar las columnas y para sql los datos de la DB)
     // Ajustes SQL

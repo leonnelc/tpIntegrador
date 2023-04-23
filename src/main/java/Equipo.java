@@ -35,4 +35,8 @@ public class Equipo {
     public static Equipo getEquipo(int id){
         return equiposIndexados.get(id);
     }
+
+    public String getNombre() {
+        return nombre;
+    }
 }
