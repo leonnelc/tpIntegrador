@@ -8,11 +8,9 @@ public class Persona {
     private static final ArrayList<Persona> personas = new ArrayList<>();
     private static final HashMap<String, Integer> mapaMombreId = new HashMap<>();//
     private final HashMap<Integer, Pronostico> pronosticos = new HashMap<>(); // <idPartido, Pronostico>
-    private HashMap<Integer, Integer> aciertosPorFase = new HashMap<>(); // <numfase, aciertos>
-    private HashMap<Integer, Integer> aciertosPorRonda = new HashMap<>(); // <numronda, aciertos>
     private int puntos;
     private final int id;
-    private String nombre;
+    private final String nombre;
 
     private Persona(String nombre) {
         this.puntos = 0;
@@ -44,15 +42,8 @@ public class Persona {
             ronda.addAcierto(this.id);
         }
     }
-    public static Persona getPersona(int id){
-        return personas.get(id);
-    }
     public void addPuntos(int puntos){
         this.puntos += puntos;
-    }
-
-    public Pronostico[] getPronosticos() {
-        return pronosticos.values().toArray(new Pronostico[0]);
     }
 
     public static ArrayList<Persona> getPersonas() {

@@ -1,7 +1,7 @@
 import Excepciones.ColumnasInvalidasException;
 import IO.*;
 
-public class Main {
+public class tpIntegrador {
     public static void main(String[] args) {
         String[] argsParseados = ParseadorArgs.parsearArgs(args, " ");
         if (argsParseados.length != 2){

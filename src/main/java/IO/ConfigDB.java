@@ -138,12 +138,12 @@ public class ConfigDB {
     // tipo de base de datos
     private static String tipoDB = "csv"; // puede ser csv o sql (para csv hay que configurar las columnas y para sql los datos de la DB)
     // Ajustes SQL
-    private static String url = "localhost:666";
-    private static String username = "admin";
-    private static String password = "1234";
+    private static String url = "";
+    private static String username = "";
+    private static String password = "";
     // Ajustes CSV
-    private static String rutaResultados = "src/main/resources/resultados.csv";
-    private static String rutaPronosticos = "src/main/resources/pronosticos.csv";
+    private static String rutaResultados = "";
+    private static String rutaPronosticos = "";
     // los numeros son las columnas del csv, siendo el 0 la primera columna
     private static int fase = 0;
     private static int ronda = 1;
