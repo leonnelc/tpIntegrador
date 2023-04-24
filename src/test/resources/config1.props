@@ -1,0 +1,12 @@
+puntosPorAcierto=1
+puntosPorAciertoRonda=100
+puntosPorAciertoFase=1000
+partidosPorRonda=4
+rondasPorFase=2
+
+# no modificar
+puntosPorAcierto.type=int
+puntosPorAciertoRonda.type=int
+puntosPorAciertoFase.type=int
+partidosPorRonda.type=int
+rondasPorFase.type=int

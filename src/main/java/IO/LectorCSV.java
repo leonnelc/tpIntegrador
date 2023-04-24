@@ -22,19 +22,21 @@ public class LectorCSV {
             try {
                 BufferedReader br = new BufferedReader(new FileReader(this.archivo));
                 int nroLinea = 0;
+                int numColumnas = 6;
                 String linea = br.readLine();
 
                 while (linea != null) {
 
                     String[] columnas = linea.split(this.separador);
                     for (int i = 0; i < columnas.length; i++) {
-                        int numColumnas = 6;
+
                         if (columnas.length != numColumnas){
                             throw new ColumnasInvalidasException("El archivo \""+archivo+"\" tiene "+columnas.length+" columnas en la fila numero "+(nroLinea+1)+", cuando deberia tener "+ numColumnas);
                         }
                         columnas[i] = columnas[i].strip(); // le saco los espacios para prevenir errores
 
                     }
+
                     this.filas.add(nroLinea, columnas);
                     //System.out.println(Arrays.toString(columnas));
                     //System.out.println(Arrays.toString(this.filas.get(nroLinea)));
@@ -50,9 +52,6 @@ public class LectorCSV {
 
         }
 
-    public ArrayList<String[]> getFilas() {
-        return filas;
-    }
     public String[] getFila(int indice){
             return filas.get(indice);
     }

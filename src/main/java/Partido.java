@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Partido {
     private static int ultimoId = 0; // se usa para otorgarle ids unicos a los partidos en su instanciacion
-    private static ArrayList<Partido> partidos = new ArrayList<>();
+    private static final ArrayList<Partido> partidos = new ArrayList<>();
     private final int id;
     private final int numRonda;
     private final int numFase;
@@ -24,19 +24,11 @@ public class Partido {
 
     }
 
-    public Equipo getEquipo1() {
-        return equipo1;
-    }
-
-    public Equipo getEquipo2() {
-        return equipo2;
-    }
-
     public int getGanadorId(){
         if (golesEq1 > golesEq2){
             return equipo1.getId();
         } else if (golesEq2 > golesEq1) {
-            return equipo1.getId();
+            return equipo2.getId();
         }else{
             return -1;
         }
@@ -50,11 +42,8 @@ public class Partido {
     }
 
     public boolean tieneEquipos(int idEquipo1, int idEquipo2){
-        if ( (equipo1.getId() == idEquipo1 && equipo2.getId() == idEquipo2)
-                || (equipo1.getId() == idEquipo2 && equipo2.getId() == idEquipo1) ){
-            return true;
-        }
-        return false;
+        return (equipo1.getId() == idEquipo1 && equipo2.getId() == idEquipo2)
+                || (equipo1.getId() == idEquipo2 && equipo2.getId() == idEquipo1);
     }
 
     public int getNumFase() {
@@ -63,14 +52,15 @@ public class Partido {
     public int getNumRonda(){
         return numRonda;
     }
-    public static Partido instanciarSiNoExiste(int fase, int ronda, Equipo equipo1, Equipo equipo2, int golesEq1, int golesEq2){
+    public static void instanciarSiNoExiste(int fase, int ronda, Equipo equipo1, Equipo equipo2, int golesEq1, int golesEq2){
         Ronda.instanciarSiNoExiste(ronda, fase);
         for (Partido partido : Fase.getFase(fase).getRonda(ronda).getPartidos()){
             if (partido.tieneEquipos(equipo1.getId(), equipo2.getId())){
-                return partido;
+                return;
+
             }
         }
-        return new Partido(fase, ronda, equipo1, equipo2, golesEq1, golesEq2);
+        new Partido(fase, ronda, equipo1, equipo2, golesEq1, golesEq2);
     }
     @Override
     public String toString(){
