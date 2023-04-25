@@ -12,3 +12,5 @@ obtenido a los participantes.
 * Se puede configurar para usar bases de datos tanto SQL como archivos CSV
 * Se puede configurar cuantos partidos tiene una ronda, y cuantas rondas tiene una fase.
 * Se pueden configurar los puntos por acertar un partido, una ronda y una fase completa.
+## ¿Como se usa?
+Con el comando java -jar tpIntegrador-1.0.jar "ruta/al archivo/configDB.props" "ruta/al archivo/configPrograma.props"
