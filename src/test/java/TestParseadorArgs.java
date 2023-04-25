@@ -1,8 +1,6 @@
 import IO.ParseadorArgs;
-import org.junit.Test;
-import org.junit.Assert;
-
-import java.util.Arrays;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TestParseadorArgs {
     // testea si el parseador de argumentos funciona correctamente
@@ -12,9 +10,7 @@ public class TestParseadorArgs {
         String[] args = str.split(" ");
         String[] argsParseados = ParseadorArgs.parsearArgs(args);
         String[] argsValidos = new String[]{"c:/hola soy juan/datos/config.props", "c:/datos/archivos de configuracion/config.props"};
-        System.out.println(Arrays.toString(argsParseados));
-        System.out.println(Arrays.toString(argsValidos));
-        Assert.assertEquals(argsValidos, argsParseados);
+        Assertions.assertArrayEquals(argsValidos, argsParseados);
     }
     @Test
     public void test2(){
@@ -22,9 +18,7 @@ public class TestParseadorArgs {
         String[] args = str.split(" ");
         String[] argsParseados = ParseadorArgs.parsearArgs(args);
         String[] argsValidos = new String[]{"c:/hola soy juan/datos/config.props", "c:/datos/archivosdeconfiguracion/config.props"};
-        System.out.println(Arrays.toString(argsParseados));
-        System.out.println(Arrays.toString(argsValidos));
-        Assert.assertEquals(argsValidos, argsParseados);
+        Assertions.assertArrayEquals(argsValidos, argsParseados);
     }
     @Test
     public void test3(){
@@ -32,19 +26,7 @@ public class TestParseadorArgs {
         String[] args = str.split(" ");
         String[] argsParseados = ParseadorArgs.parsearArgs(args);
         String[] argsValidos = new String[]{"c:/holasoyjuan/datos/config.props", "c:/datos/archivos de configuracion/config.props"};
-        System.out.println(Arrays.toString(argsParseados));
-        System.out.println(Arrays.toString(argsValidos));
-        Assert.assertEquals(argsValidos, argsParseados);
-    }
-    @Test
-    public void test4(){
-        String str = "c:/hola soy juan/datos/config.props c:/datos/archivos de configuracion/config.props";
-        String[] args = str.split(" ");
-        String[] argsParseados = ParseadorArgs.parsearArgs(args);
-        String[] argsValidos = new String[]{"c:/hola soy juan/datos/config.props", "c:/datos/archivos de configuracion/config.props"};
-        System.out.println(Arrays.toString(argsParseados));
-        System.out.println(Arrays.toString(argsValidos));
-        Assert.assertNotEquals(argsValidos, argsParseados);
+        Assertions.assertArrayEquals(argsValidos, argsParseados);
     }
 
 }

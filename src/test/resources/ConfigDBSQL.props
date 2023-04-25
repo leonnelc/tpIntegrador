@@ -1,0 +1,28 @@
+# tipoDB puede ser SQL o CSV
+tipoDB=SQL
+# ajustes solo para SQL:
+# url= la url de la DB
+url=jdbc:mysql://localhost:3306/tpintegrador
+# username= el nombre de usuario para logearse en la DB
+username=root
+# password= la clave para logearse en la DB
+password=7$27CuPg)~;fy8m
+# ajustes solo para CSV:
+rutaResultados=src/test/resources/resultados1.csv
+rutaPronosticos=src/test/resources/pronosticos1.csv
+# los siguientes ajustes se usan para indicar en que columna esta cada campo, iniciando desde el 0
+# por ejemplo fase=0 significa que la primer columna va a indicar la fase,
+# ronda=1 significa que las rondas van a estar en la columna numero 1 ( la segunda columna), y asi sucesivamente
+# tener en cuenta que usar un numero menor a 0 o mayor a 5 va a resultar en un error.
+fase=0
+ronda=1
+# la r en equipo1 y equipo2 significa que son del archivo .csv de resultados
+equipo1r=2
+equipo2r=5
+# la p en equipo1 y equipo2 significa que son del archivo .csv de pronosticos
+equipo1p=3
+equipo2p=5
+goles1=3
+goles2=4
+participante=2
+resultado=4

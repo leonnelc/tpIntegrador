@@ -4,14 +4,14 @@ import IO.Config;
 import java.util.HashMap;
 
 public class Fase {
-    private static final HashMap<Integer, Fase> fases = new HashMap<>();
-    private final HashMap<Integer, Ronda> rondas = new HashMap<>();
-    private final HashMap<Integer, Integer> pronosticosAcertados = new HashMap<>();
-    private final int numero;
+    private static final HashMap<Integer, Fase> fases = new HashMap<>(); // mapeo de numFase: Fase
+    private final HashMap<Integer, Ronda> rondas = new HashMap<>(); // mapeo de numRonda: Ronda
+    private final HashMap<Integer, Integer> pronosticosAcertados = new HashMap<>(); // mapeo de idPersona: numPronosticosAcertados
+    private final int numero; // numero de fase
 
-    public Fase(int numero) {
+    private Fase(int numero) {
         this.numero = numero;
-        fases.put(numero, this);
+        fases.put(numero, this); // al instanciarse, se agrega a si mismo al mapa de fases
     }
 
     public static Fase getFase(int numFase) {
@@ -42,14 +42,11 @@ public class Fase {
         return rondas.values().toArray(new Ronda[0]);
     }
 
-    public static Fase[] getFases() {
-        return fases.values().toArray(new Fase[0]);
-    }
-
     public int getAciertos(int idPersona) {
         if (pronosticosAcertados.get(idPersona) == null){
             return 0;
         }
+        // devuelve los aciertos de la persona con el ID idPersona en esta fase
         return pronosticosAcertados.get(idPersona);
     }
 
@@ -57,12 +54,13 @@ public class Fase {
         if (!pronosticosAcertados.containsKey(idPersona)) {
             pronosticosAcertados.put(idPersona, 0);
         }
+        // agrega un acierto en esta fase a la persona con el ID idPersona
         pronosticosAcertados.put(idPersona, pronosticosAcertados.get(idPersona) + 1);
     }
 
     public int getNumPartidos() {
         int numPartidos = 0;
-        for (Ronda ronda : getRondas()) {
+        for (Ronda ronda : getRondas()) { // itera sobre cada ronda de la fase para calcular cuantos partidos hay en total
             numPartidos += ronda.getNumPartidos();
         }
         return numPartidos;

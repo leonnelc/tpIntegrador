@@ -4,12 +4,16 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class LectorSQL {
-    public static Fila[] getResultados() throws SQLException {
 
-            String url = ConfigDB.getUrl();
-            String username = ConfigDB.getUsername();
-            String password = ConfigDB.getPassword();
-            Connection connection = DriverManager.getConnection(url, username, password);
+    Connection connection;
+
+    LectorSQL() throws SQLException{
+        String url = ConfigDB.getUrl();
+        String username = ConfigDB.getUsername();
+        String password = ConfigDB.getPassword();
+        connection = DriverManager.getConnection(url, username, password);
+    }
+    public Fila[] getResultados() throws SQLException {
 
             String sql = "SELECT * FROM resultados";
             Statement statement = connection.createStatement();
@@ -25,22 +29,17 @@ public class LectorSQL {
                 String equipo2 = resultset.getString("Equipo 2");
                 filas.add(new Fila(fase, ronda, equipo1, equipo2, golesEq1, golesEq2));
             }
-            connection.close();
             return filas.toArray(new Fila[0]);
 
     }
-    public static Fila[] getPronosticos() throws SQLException{
-            String url = ConfigDB.getUrl();
-            String username = ConfigDB.getUsername();
-            String password = ConfigDB.getPassword();
-            Connection connection = DriverManager.getConnection(url, username, password);
+    public Fila[] getPronosticos() throws SQLException{
 
             String sql = "SELECT * FROM pronosticos";
             Statement statement = connection.createStatement();
 
             ResultSet resultset = statement.executeQuery(sql);
             ArrayList<Fila> filas = new ArrayList<>();
-            while (resultset.next()) {
+            while (resultset.next()) { // mientras haya datos, se instancia una nueva Fila y se agrega a la lista de filas
                 int fase = resultset.getInt("Fase");
                 int ronda = resultset.getInt("Ronda");
                 String equipo1 = resultset.getString("Equipo 1");
@@ -49,8 +48,10 @@ public class LectorSQL {
                 String equipo2 = resultset.getString("Equipo 2");
                 filas.add(new Fila(fase, ronda, participante, equipo1, equipo2, resultado));
             }
-            connection.close();
             return filas.toArray(new Fila[0]);
 
+    }
+    public void cerrarConexion() throws SQLException{
+        connection.close();
     }
 }

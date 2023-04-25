@@ -2,32 +2,18 @@ package IO;
 
 import Excepciones.ConfigInvalidaException;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class LectorConfig {
-    // TODO: prevenir que config y configDB den valores null a las configuraciones y lanzar un error si es asi
-
-    private static void validarArchivo(String ruta) throws ConfigInvalidaException{
-        File archivo = new File(ruta);
-        if (!archivo.exists()){
-            throw new ConfigInvalidaException("El archivo de configuracion \""+archivo.getPath()+"\" no existe!");
-        }
-        if (!archivo.isFile()){
-            throw new ConfigInvalidaException("\""+archivo+"\" no es un archivo!");
-        }
-    }
-    public static void config(String archivo) {
-        validarArchivo(archivo);
+    public static void cargarConfig(String archivo) {
         // carga la configuracion del programa
         Properties props = new Properties();
-        try (FileInputStream fis = new FileInputStream(archivo)) {
-            props.load(fis);
+        try (FileInputStream stream = new FileInputStream(archivo)) {
+            props.load(stream);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
+            throw new ConfigInvalidaException("El archivo \""+archivo+"\" no existe o no se pudo leer");
         }
         try {
             if ((props.getProperty("puntosPorAcierto") == null) ||
@@ -36,8 +22,11 @@ public class LectorConfig {
                     (props.getProperty("partidosPorRonda") == null) ||
                     (props.getProperty("rondasPorFase") == null))
             {
-                throw new ConfigInvalidaException("Falta la configuracion de un campo en el archivo "+ archivo);
+                // lo que hace esta parte del codigo es validar que ninguno de los campos este sin declarar y si ocurre,
+                // lanzar un error
+                throw new ConfigInvalidaException("Falta la configuracion de un campo en el archivo de configuracion del programa \""+archivo+"\"");
             }
+            // esta porcion de codigo setea las variables estaticas de la clase Config
             Config.setPuntosPorAcierto(Integer.parseInt(props.getProperty("puntosPorAcierto")));
             Config.setPuntosPorAciertoRonda(Integer.parseInt(props.getProperty("puntosPorAciertoRonda")));
             Config.setPuntosPorAciertoFase(Integer.parseInt(props.getProperty("puntosPorAciertoFase")));
@@ -51,16 +40,13 @@ public class LectorConfig {
 
     }
 
-    public static void configDB(String archivo){
-        validarArchivo(archivo);
+    public static void cargarConfigDB(String archivo){
         // carga la configuracion de la base de datos
-
                 Properties props = new Properties();
-                try (FileInputStream fis = new FileInputStream(archivo)) {
-                    props.load(fis);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.exit(1);
+                try (FileInputStream stream = new FileInputStream(archivo)) {
+                    props.load(stream);
+                }catch (IOException e) {
+                    throw new ConfigInvalidaException("El archivo \""+archivo+"\" no existe o no se pudo leer");
                 }
                 try {
                     if ((props.getProperty("tipoDB") == null) ||
@@ -79,8 +65,11 @@ public class LectorConfig {
                             (props.getProperty("resultado") == null) ||
                             (props.getProperty("equipo1p") == null) ||
                             (props.getProperty("equipo2p") == null)){
-                        throw new ConfigInvalidaException("Falta la configuracion de un campo en el archivo "+ archivo);
+                        // la condicion es que ninguna de las propiedades está sin declarar, y si hay alguna sin declarar,
+                        // lanza un error
+                        throw new ConfigInvalidaException("Falta la configuracion de un campo en el archivo de configuracion de la DB \""+archivo+"\"");
                     }
+                    // esta porcion de codigo setea las variables estaticas de la clase ConfigDB
                     ConfigDB.setTipoDB(props.getProperty("tipoDB"));
                     ConfigDB.setUrl(props.getProperty("url"));
                     ConfigDB.setUsername(props.getProperty("username"));

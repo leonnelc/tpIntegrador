@@ -4,9 +4,49 @@ import Excepciones.ConfigInvalidaException;
 
 public class ConfigDB {
     private ConfigDB(){
-        // solo para hacer que no se pueda instanciar
+        // el constructor solo está declarado para hacerlo privado y que no se pueda instanciar
     }
 
+    // tipo de base de datos
+    private static String tipoDB = "csv"; // puede ser csv o sql (para csv hay que configurar las columnas y para sql los datos de la DB)
+    // Ajustes SQL
+    private static String url = "";
+    private static String username = "";
+    private static String password = "";
+    // Ajustes CSV
+    private static String rutaResultados = "";
+    private static String rutaPronosticos = "";
+    // los numeros son las columnas del csv, siendo el 0 la primera columna
+    private static int fase = 0;
+    private static int ronda = 1;
+    // ajustes del csv de resultados:
+    private static int equipo1r = 2; // la r significa que pertenece al archivo csv de los resultados
+    private static int equipo2r = 5;
+    private static int goles1 = 3;
+    private static int goles2 = 4;
+
+    // ajustes del csv de pronosticos:
+    private static int participante = 2;
+    private static int resultado = 4;
+    private static int equipo1p = 3; // la p significa que pertenece al archivo csv de los pronosticos
+    private static int equipo2p = 5;
+
+    public static void validar() throws ConfigInvalidaException {
+        int[] columnasResultados = new int[]{fase, ronda, equipo1r, equipo2r, goles1, goles2};
+        int[] columnasPronosticos = new int[]{fase, ronda, participante, resultado, equipo1p, equipo2p};
+        for (int numColumna : columnasResultados) {
+            if ((numColumna > 5) || (numColumna < 0)) {
+                throw new ConfigInvalidaException("El numero de columna "+numColumna+" en el archivo de resultados es mayor a 5 o menor a 0");
+            }
+        }
+        for (int numColumna : columnasPronosticos) {
+            if ((numColumna > 5) || (numColumna < 0)) {
+                throw new ConfigInvalidaException("El numero de columna "+numColumna+" en el archivo de pronosticos es mayor a 5 o menor a 0");
+            }
+        }
+    }
+
+    // getters y setters:
     public static void setTipoDB(String tipoDB) {
         ConfigDB.tipoDB = tipoDB;
     }
@@ -133,44 +173,5 @@ public class ConfigDB {
 
     public static String getRutaResultados() {
         return rutaResultados;
-    }
-
-    // tipo de base de datos
-    private static String tipoDB = "csv"; // puede ser csv o sql (para csv hay que configurar las columnas y para sql los datos de la DB)
-    // Ajustes SQL
-    private static String url = "";
-    private static String username = "";
-    private static String password = "";
-    // Ajustes CSV
-    private static String rutaResultados = "";
-    private static String rutaPronosticos = "";
-    // los numeros son las columnas del csv, siendo el 0 la primera columna
-    private static int fase = 0;
-    private static int ronda = 1;
-    // ajustes del csv que contiene los resultados
-    private static int equipo1r = 2; // la r significa que pertenece al archivo csv de los resultados
-    private static int equipo2r = 5;
-    private static int goles1 = 3;
-    private static int goles2 = 4;
-    // ajustes del csv que contiene los pronosticos
-    private static int participante = 2;
-    private static int resultado = 4;
-    private static int equipo1p = 3; // la p significa que pertenece al archivo csv de los pronosticos
-    private static int equipo2p = 5;
-
-    public static void validar() throws ConfigInvalidaException {
-        int[] columnasResultados = new int[]{fase, ronda, equipo1r, equipo2r, goles1, goles2};
-        int[] columnasPronosticos = new int[]{fase, ronda, participante, resultado, equipo1p, equipo2p};
-        for (int numColumna : columnasResultados) {
-            if ((numColumna > 5) || (numColumna < 0)) {
-                // TODO: hacer mas especifico el error, posiblemente dando el nombre de la columna fuera de rango
-                throw new ConfigInvalidaException("El numero de columna especificado \"" + numColumna + "\" para el archivo de resultados esta fuera de rango");
-            }
-        }
-        for (int numColumna : columnasPronosticos) {
-            if ((numColumna > 5) || (numColumna < 0)) {
-                throw new ConfigInvalidaException("El numero de columna especificado \"" + numColumna + "\" para el archivo de pronosticos esta fuera de rango");
-            }
-        }
     }
 }

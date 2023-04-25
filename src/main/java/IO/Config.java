@@ -8,6 +8,8 @@ public class Config {
     private static int partidosPorRonda = 4;
     private static int rondasPorFase = 2;
 
+
+    // getters y setters:
     public static int getPuntosPorAcierto() {
         return puntosPorAcierto;
     }
