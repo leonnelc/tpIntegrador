@@ -75,7 +75,17 @@ public class tpIntegrador {
                 Persona.instanciarSiNoExiste(fila.getPersona()).addPronostico(pronostico);
 
             }
-            for (Persona persona : Persona.getPersonas()) {
+            Persona[] personas = Persona.getPersonas();
+            for (int i = 0; i < personas.length;i++ ){ // algoritmo para ordenar los resultados ( muy ineficiente )
+                for (int j = 0; j < personas.length; j++){
+                    if (personas[i].getPuntos() > personas[j].getPuntos()){
+                        Persona temp = personas[j];
+                        personas[j] = personas[i];
+                        personas[i] = temp;
+                    }
+                }
+            }
+            for (Persona persona : personas) {
                 System.out.println(persona.getNombre() + ": " + persona.getPuntos());
             }
         } catch (ClassNotFoundException e) {
